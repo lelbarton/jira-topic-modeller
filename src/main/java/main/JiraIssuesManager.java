@@ -7,9 +7,4 @@ public class JiraIssuesManager extends AbstractIssuesManager {
 
 	}
 
-	@Override
-	public void addIssue(Issue issue) {
-		issues.add(issue);
-	}
-
 }

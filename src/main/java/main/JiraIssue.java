@@ -38,8 +38,6 @@ public class JiraIssue implements Issue {
 		this.contentText = desc;
 		this.authorName = displayName;
 		this.userName = userName;
-		this.instanceManager = MALLETInstanceManager.getInstance();
-		instanceManager.addInstance(this);
 	}
 
 	public String getSummary() {

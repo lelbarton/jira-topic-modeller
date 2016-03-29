@@ -12,6 +12,7 @@ public abstract class AbstractIssuesManager implements Iterable<Issue> {
 	public AbstractIssuesManager() {
 		this.issues = new HashSet<Issue>();
 		this.topicModelManager = MALLETInstanceManager.getInstance();
+
 	}
 
 	/*
@@ -21,9 +22,15 @@ public abstract class AbstractIssuesManager implements Iterable<Issue> {
 	 */
 	public void addIssue(Issue issue) {
 		issues.add(issue);
+		topicModelManager.addInstance(issue);
 	}
 
 	public Iterator<Issue> iterator() {
 		return this.issues.iterator();
+	}
+
+	public void printTopics() throws Exception {
+		// TODO Auto-generated method stub
+		topicModelManager.sampleAnalyze();
 	}
 }
