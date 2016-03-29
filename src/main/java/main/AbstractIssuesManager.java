@@ -7,9 +7,11 @@ import java.util.Set;
 public abstract class AbstractIssuesManager implements Iterable<Issue> {
 
 	protected Set<Issue> issues;
+	private MALLETInstanceManager topicModelManager;
 
 	public AbstractIssuesManager() {
 		this.issues = new HashSet<Issue>();
+		this.topicModelManager = MALLETInstanceManager.getInstance();
 	}
 
 	/*
@@ -19,17 +21,6 @@ public abstract class AbstractIssuesManager implements Iterable<Issue> {
 	 */
 	public void addIssue(Issue issue) {
 		issues.add(issue);
-	}
-
-	/*
-	 * Removes the given issue from the collection of issues
-	 * 
-	 * @param issue the issue to be removed
-	 * 
-	 * @return returns true if the issue was present and has been removed
-	 */
-	public boolean removeIssue(Issue issue) {
-		return issues.remove(issue);
 	}
 
 	public Iterator<Issue> iterator() {

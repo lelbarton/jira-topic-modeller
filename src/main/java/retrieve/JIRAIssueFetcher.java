@@ -41,7 +41,4 @@ public class JIRAIssueFetcher implements IIssueFetcher {
 		return sb.toString();
 	}
 
-	public void makeIssues(String xml) {
-		return;
-	}
 }
