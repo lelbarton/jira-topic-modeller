@@ -58,7 +58,7 @@ public class MALLETInstanceManager implements Iterable<Instance> {
 	}
 
 	public void sampleAnalyze() throws Exception {
-		int numTopics = 10;
+		int numTopics = 15;
 		ParallelTopicModel model = new ParallelTopicModel(numTopics, 1.0, 0.01);
 
 		model.addInstances(instances);
@@ -70,7 +70,7 @@ public class MALLETInstanceManager implements Iterable<Instance> {
 
 		// Run the model for 50 iterations and stop (this is for testing only,
 		// for real applications, use 1000 to 2000 iterations)
-		model.setNumIterations(50);
+		model.setNumIterations(100);
 		model.estimate();
 
 		// Show the words and topics in the first instance
