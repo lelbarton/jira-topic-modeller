@@ -1,5 +1,7 @@
 package main;
 
+import cc.mallet.types.Instance;
+
 public class JiraIssue implements Issue {
 
 	private String key;
@@ -10,7 +12,8 @@ public class JiraIssue implements Issue {
 	private String authorName;
 	private String userName;
 	private AnnotatedIssue annotations;
-	private MALLETInstanceManager instanceManager;
+	private MalletInstanceManager instanceManager;
+	private Instance topicModel;
 
 	/*
 	 * Constructor for JIRA issue object
@@ -58,5 +61,13 @@ public class JiraIssue implements Issue {
 
 	public String getAuthor() {
 		return this.authorName;
+	}
+
+	public void setTopics(Instance instance) {
+		this.topicModel = instance;
+	}
+
+	public void getTopics() {
+		// System.out.println(topicModel.getData());
 	}
 }

@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Iterator;
+
 import retrieve.IIssueFetcher;
 import retrieve.JIRAIssueFetcher;
 import retrieve.JiraJSONParser;
@@ -16,8 +18,19 @@ public class Main {
 		String json = fetcher.httpGet(JIRAConnectURL);
 		AbstractIssuesManager issuesManager = JiraJSONParser.parseJson(json);
 		issuesManager.printTopics();
-		// for (Issue issue : issues) {
-		// System.out.println(issue.getAuthor());
-		// }
+
+		Iterator<Issue> iter = issuesManager.iterator();
+		int oneOnly = 0;
+		while (iter.hasNext()) {
+			Issue issue = iter.next();
+			oneOnly++;
+			if (oneOnly == 1) {
+				issue.getTopics();
+
+			}
+		}
+		// TopicWriter writer = new
+		// TopicWriter("/Users/Laura/Desktop/topicTestFile.csv");
+
 	}
 }

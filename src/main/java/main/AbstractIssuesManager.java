@@ -4,14 +4,16 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import cc.mallet.types.Instance;
+
 public abstract class AbstractIssuesManager implements Iterable<Issue> {
 
 	protected Set<Issue> issues;
-	private MALLETInstanceManager topicModelManager;
+	private MalletInstanceManager topicModelManager;
 
 	public AbstractIssuesManager() {
 		this.issues = new HashSet<Issue>();
-		this.topicModelManager = MALLETInstanceManager.getInstance();
+		this.topicModelManager = MalletInstanceManager.getInstance();
 
 	}
 
@@ -22,7 +24,8 @@ public abstract class AbstractIssuesManager implements Iterable<Issue> {
 	 */
 	public void addIssue(Issue issue) {
 		issues.add(issue);
-		topicModelManager.addInstance(issue);
+		Instance instance = topicModelManager.addInstance(issue);
+		issue.setTopics(instance);
 	}
 
 	public Iterator<Issue> iterator() {
@@ -31,6 +34,6 @@ public abstract class AbstractIssuesManager implements Iterable<Issue> {
 
 	public void printTopics() throws Exception {
 		// TODO Auto-generated method stub
-		topicModelManager.sampleAnalyze();
+		topicModelManager.analyzeTopics();
 	}
 }
