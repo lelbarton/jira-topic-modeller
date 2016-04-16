@@ -11,9 +11,7 @@ public class JiraIssue implements Issue {
 	private String contentText;
 	private String authorName;
 	private String userName;
-	private AnnotatedIssue annotations;
-	private MalletInstanceManager instanceManager;
-	private Instance topicModel;
+	private Instance instance;
 
 	/*
 	 * Constructor for JIRA issue object
@@ -63,11 +61,12 @@ public class JiraIssue implements Issue {
 		return this.authorName;
 	}
 
-	public void setTopics(Instance instance) {
-		this.topicModel = instance;
+	public void setInstance(Instance instance) {
+		this.instance = instance;
 	}
 
-	public void getTopics() {
-		// System.out.println(topicModel.getData());
+	public Instance getInstance() {
+		// TODO Auto-generated method stub
+		return this.instance;
 	}
 }

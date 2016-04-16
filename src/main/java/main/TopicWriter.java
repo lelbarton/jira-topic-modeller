@@ -3,6 +3,8 @@ package main;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringEscapeUtils;;
+
 public class TopicWriter {
 
 	private String fileName;
@@ -17,7 +19,11 @@ public class TopicWriter {
 			writer.append(",");
 			writer.append("Subject");
 			writer.append(",");
-			writer.append("Topics");
+			writer.append("Topic #");
+			writer.append(",");
+			writer.append("Weight");
+			writer.append(",");
+			writer.append("Main Topic");
 			writer.append(",");
 			writer.append("Content");
 			writer.append("\n");
@@ -30,15 +36,14 @@ public class TopicWriter {
 
 	public void writeTopicModel(String id, String subject, String topics, String content) {
 		// TODO
-
 		try {
 			writer.append(id);
 			writer.append(",");
-			writer.append(subject);
+			writer.append(StringEscapeUtils.escapeCsv(subject));
 			writer.append(",");
 			writer.append(topics);
 			writer.append(",");
-			writer.append(content);
+			writer.append(StringEscapeUtils.escapeCsv(content));
 			writer.append("\n");
 			// TODO add content for all issues
 

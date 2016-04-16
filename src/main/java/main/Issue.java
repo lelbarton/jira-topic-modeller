@@ -14,8 +14,8 @@ public interface Issue {
 
 	public String getAuthor();
 
-	public void setTopics(Instance instance);
+	public void setInstance(Instance instance);
 
-	public void getTopics();
+	public Instance getInstance();
 
 }
