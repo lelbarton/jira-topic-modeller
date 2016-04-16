@@ -94,6 +94,7 @@ public class MalletInstanceManager {
 		Iterator<IDSorter> iterator = topicSortedWords.get(topic).iterator();
 
 		Formatter out = new Formatter(new StringBuilder(), Locale.US);
+		// include commas for csv column splits
 		out.format("%d%s\t%.3f\t%s", topic, ",", topicDistribution[topic], ",");
 		int rank = 0;
 		while (iterator.hasNext() && rank < TOP_WORDS) {

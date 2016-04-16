@@ -1,7 +1,6 @@
 package main;
 
-import retrieve.IIssueFetcher;
-import retrieve.JIRAIssueFetcher;
+import retrieve.HttpIssueFetcher;
 import retrieve.JiraJSONParser;
 
 public class Main {
@@ -11,7 +10,7 @@ public class Main {
 	static final String OUTFILE = "/Users/Laura/Desktop/topicModelTest2.csv";
 
 	public static void main(String[] args) throws Exception {
-		IIssueFetcher fetcher = new JIRAIssueFetcher();
+		HttpIssueFetcher fetcher = new HttpIssueFetcher();
 		String json = fetcher.httpGet(ISSUES_URL);
 		IssuesManager issuesManager = JiraJSONParser.parseJson(json);
 		issuesManager.trainTopicModel();

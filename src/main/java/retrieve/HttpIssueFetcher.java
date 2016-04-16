@@ -6,9 +6,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class JIRAIssueFetcher implements IIssueFetcher {
+public class HttpIssueFetcher {
 
-	public JIRAIssueFetcher() {
+	public HttpIssueFetcher() {
 		// constructor
 	}
 

@@ -15,15 +15,15 @@ public class TopicWriter {
 
 		try {
 			this.writer = new FileWriter(fileName);
-			writer.append("Issue Id");
-			writer.append(",");
-			writer.append("Subject");
-			writer.append(",");
 			writer.append("Topic #");
 			writer.append(",");
 			writer.append("Weight");
 			writer.append(",");
 			writer.append("Main Topic");
+			writer.append(",");
+			writer.append("Issue Id");
+			writer.append(",");
+			writer.append("Subject");
 			writer.append(",");
 			writer.append("Content");
 			writer.append("\n");
@@ -37,11 +37,11 @@ public class TopicWriter {
 	public void writeTopicModel(String id, String subject, String topics, String content) {
 		// TODO
 		try {
+			writer.append(topics);
+			writer.append(",");
 			writer.append(id);
 			writer.append(",");
 			writer.append(StringEscapeUtils.escapeCsv(subject));
-			writer.append(",");
-			writer.append(topics);
 			writer.append(",");
 			writer.append(StringEscapeUtils.escapeCsv(content));
 			writer.append("\n");
