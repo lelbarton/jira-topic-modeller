@@ -9,8 +9,7 @@ public class JiraIssue implements Issue {
 	private String date;
 	private String summary;
 	private String contentText;
-	private String authorName;
-	private String userName;
+	private String displayName;
 	private Instance instance;
 
 	/*
@@ -20,53 +19,80 @@ public class JiraIssue implements Issue {
 	 * 
 	 * @param id The id number of the issue
 	 * 
-	 * @param summary The natural language summary
+	 * @param summary The subject line
 	 * 
 	 * @param desc The content of the issue post
 	 * 
 	 * @param date The date this was posted
 	 * 
-	 * @param displayName The display name of the poster
+	 * @param displayName The display name of the author
 	 * 
-	 * @param userName The Atlassian user name of the poster
+	 * @param userName The Atlassian user name of the author
 	 */
-	public JiraIssue(String key, int id, String summary, String desc, String date, String displayName,
-			String userName) {
-		this.id = id;
-		this.key = key;
-		this.date = date;
-		this.summary = summary;
-		this.contentText = desc;
-		this.authorName = displayName;
-		this.userName = userName;
+	public JiraIssue(String key, int id, String summary, String desc, String date, String displayName) {
+		this.setId(id);
+		this.setKey(key);
+		this.setDate(date);
+		this.setSummary(summary);
+		this.setContent(desc);
+		this.setDisplayName(displayName);
 	}
 
-	public String getSummary() {
-		return this.summary;
-	}
-
-	public String getKey() {
-		return this.key;
-	}
-
-	public String getContent() {
-		return this.contentText;
-	}
-
-	public int getID() {
-		return this.id;
-	}
-
-	public String getAuthor() {
-		return this.authorName;
-	}
+	// *** Getters and Setters **
 
 	public void setInstance(Instance instance) {
 		this.instance = instance;
 	}
 
 	public Instance getInstance() {
-		// TODO Auto-generated method stub
 		return this.instance;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public String getContent() {
+		return contentText;
+	}
+
+	public void setContent(String contentText) {
+		this.contentText = contentText;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String authorName) {
+		this.displayName = authorName;
 	}
 }

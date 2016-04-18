@@ -18,27 +18,29 @@ import cc.mallet.types.IDSorter;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 
-public class MalletInstanceManager {
+public class MalletTopicModeller {
 	// some code adapted from http://mallet.cs.umass.edu/topics-devel.php
-	private static MalletInstanceManager singletonInstance;
+	private static MalletTopicModeller singletonInstance;
 	private InstanceList instances;
 	private ArrayList<Pipe> pipeList;
 	private ParallelTopicModel model;
 
-	// Run the model for 50 iterations and stop for testing,
-	// use 1000 to 2000 iterations for real application
+	// Run the model for 50 iterations for testing,
+	// use 1000 to 2000 iterations for final application
 	private static final int NUM_ITERATIONS = 1000;
-	private static final int NUM_TOPICS = 20;
+	// # of topics; adjust accordingly if results seem to coarse or too specific
+	private static final int NUM_TOPICS = 30;
+	// # of words to include when printing topic
 	private static final int TOP_WORDS = 5;
 
-	private MalletInstanceManager() {
+	private MalletTopicModeller() {
 		this.model = new ParallelTopicModel(NUM_TOPICS, 1.0, 0.01);
 		createPipeList();
 	}
 
-	public static MalletInstanceManager getInstance() {
+	public static MalletTopicModeller getInstance() {
 		if (singletonInstance == null) {
-			singletonInstance = new MalletInstanceManager();
+			singletonInstance = new MalletTopicModeller();
 		}
 		return singletonInstance;
 	}
@@ -61,7 +63,7 @@ public class MalletInstanceManager {
 	 */
 	public Instance addInstance(Issue issue) {
 		String subjectAndContent = issue.getSummary().concat(issue.getContent());
-		Instance instance = new Instance(subjectAndContent, issue.getID(), issue.getKey(), issue.getContent());
+		Instance instance = new Instance(subjectAndContent, issue.getId(), issue.getKey(), issue.getContent());
 		instances.addThruPipe(instance);
 
 		return instance;
@@ -83,6 +85,7 @@ public class MalletInstanceManager {
 	 * Given an instance, get the topic for which it has the heaviest weighting
 	 * and return a formatted string representing the top five words
 	 */
+	@SuppressWarnings("resource")
 	public String getMainTopicString(Instance inst) {
 		// adapted from http://mallet.cs.umass.edu/topics-devel.php
 		int i = instances.indexOf(inst);

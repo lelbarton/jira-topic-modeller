@@ -6,14 +6,14 @@ import java.util.Set;
 
 import cc.mallet.types.Instance;
 
-public class IssuesManager implements Iterable<Issue> {
+public class IssueManager implements Iterable<Issue> {
 
 	protected Set<Issue> issues;
-	protected MalletInstanceManager topicModelManager;
+	protected MalletTopicModeller topicModelManager;
 
-	public IssuesManager() {
+	public IssueManager() {
 		this.issues = new HashSet<Issue>();
-		this.topicModelManager = MalletInstanceManager.getInstance();
+		this.topicModelManager = MalletTopicModeller.getInstance();
 	}
 
 	/*
@@ -32,7 +32,8 @@ public class IssuesManager implements Iterable<Issue> {
 
 		for (Issue issue : issues) {
 			String topic = topicModelManager.getMainTopicString(issue.getInstance());
-			writer.writeTopicModel(issue.getKey(), issue.getSummary(), topic, issue.getContent());
+			writer.writeTopicModel(issue.getKey(), issue.getDisplayName(), issue.getSummary(), issue.getContent(),
+					topic);
 		}
 
 		writer.closeTopicModelCsv();

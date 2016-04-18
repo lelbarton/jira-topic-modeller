@@ -6,18 +6,18 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import main.Issue;
-import main.IssuesManager;
+import main.IssueManager;
 import main.JiraIssue;
 
 public class JiraJSONParser {
 
-	public static IssuesManager parseJson(String input) {
+	public static void parse(String input, IssueManager issuesManager) {
 		JSONTokener tokener = new JSONTokener(input);
 
 		JSONObject obj = new JSONObject(tokener);
 		JSONArray issues = (JSONArray) obj.get("issues");
 
-		IssuesManager issuesManager = new IssuesManager();
+		int skippedIssues = 0;
 
 		for (int i = 0; i < issues.length(); i++) {
 			JSONObject issue = issues.getJSONObject(i);
@@ -37,18 +37,17 @@ public class JiraJSONParser {
 				// get author info
 				JSONObject creatorInfo = fields.getJSONObject("creator");
 				String displayName = creatorInfo.getString("displayName");
-				String userName = creatorInfo.getString("name");
 
 				// create new issue using the extracted data and add to manager
-				Issue jiraIssue = new JiraIssue(key, id, summary, desc, date, displayName, userName);
+				Issue jiraIssue = new JiraIssue(key, id, summary, desc, date, displayName);
 				issuesManager.addIssue(jiraIssue);
 
+				System.out.println("Number of issues skipped due to JSON exceptions: " + skippedIssues);
+
 			} catch (JSONException jse) {
-				// if any problems with parsing, skip this issue
-				System.out.println("skipped this issue");
-				jse.printStackTrace();
+				// if any problems with parsing, skip the issue
+				skippedIssues++;
 			}
 		}
-		return issuesManager;
 	}
 }
