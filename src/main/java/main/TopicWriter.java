@@ -10,7 +10,12 @@ public class TopicWriter {
 	private String fileName;
 	private FileWriter writer;
 	private static final String COLUMN_HEADERS = "Key, Author, Subject, Content, Main Topic, Topic #, Weight \n";
+	private static final String DELIMITER = ",";
 
+	/*
+	 * Creates a new csv file with the given file name. Be sure to call the
+	 * close method when all topic info has been written
+	 */
 	public TopicWriter(String fileName) {
 		this.fileName = fileName;
 
@@ -24,33 +29,31 @@ public class TopicWriter {
 		}
 	}
 
+	/*
+	 * Writes a row of the CSV with the given issue info
+	 */
 	public void writeTopicModel(String key, String author, String subject, String content, String topicInfo) {
-		// TODO
 		try {
-			writer.append(key);
-			writer.append(",");
-			writer.append(author);
-			writer.append(",");
-			writer.append(StringEscapeUtils.escapeCsv(subject));
-			writer.append(",");
-			writer.append(StringEscapeUtils.escapeCsv(content));
-			writer.append(topicInfo);
-			writer.append("\n");
-			// TODO add content for all issues
+			writer.append(key + DELIMITER);
+			writer.append(author + DELIMITER);
+			writer.append(StringEscapeUtils.escapeCsv(subject) + DELIMITER);
+			writer.append(StringEscapeUtils.escapeCsv(content) + DELIMITER);
+			writer.append(topicInfo + "\n");
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.err.println("Could not write issue " + key + " to csv");
 			e.printStackTrace();
 		}
 	}
 
+	/*
+	 * Closes the output stream to the CSV when finished writing
+	 */
 	public void closeTopicModelCsv() {
 		try {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.err.println("Could not close file " + fileName);
 			e.printStackTrace();
 		}

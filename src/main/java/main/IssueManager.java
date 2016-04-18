@@ -9,11 +9,11 @@ import cc.mallet.types.Instance;
 public class IssueManager implements Iterable<Issue> {
 
 	protected Set<Issue> issues;
-	protected MalletTopicModeller topicModelManager;
+	protected MalletTopicModeler topicModelManager;
 
 	public IssueManager() {
 		this.issues = new HashSet<Issue>();
-		this.topicModelManager = MalletTopicModeller.getInstance();
+		this.topicModelManager = MalletTopicModeler.getInstance();
 	}
 
 	/*
@@ -27,6 +27,9 @@ public class IssueManager implements Iterable<Issue> {
 		issue.setInstance(instance);
 	}
 
+	/*
+	 * Outputs a CSV file with information about each issue and its main topic
+	 */
 	public void writeToCsv(String fileName) {
 		TopicWriter writer = new TopicWriter(fileName);
 
@@ -39,6 +42,9 @@ public class IssueManager implements Iterable<Issue> {
 		writer.closeTopicModelCsv();
 	}
 
+	/*
+	 * Trains the topic model based on all currently known issues
+	 */
 	public void trainTopicModel() {
 		try {
 			topicModelManager.trainTopicModel();

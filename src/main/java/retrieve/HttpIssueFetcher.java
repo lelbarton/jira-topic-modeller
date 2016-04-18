@@ -16,7 +16,8 @@ public class HttpIssueFetcher {
 	 * From http://rest.elkstein.org/2008/02/using-rest-in-java.html
 	 * 
 	 * @param urlStr
-	 * @return
+	 *            is the URL to query for issues
+	 * @return JSON or XML string response from given URL
 	 * @throws IOException
 	 */
 

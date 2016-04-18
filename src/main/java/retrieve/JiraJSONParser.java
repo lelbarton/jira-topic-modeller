@@ -17,6 +17,7 @@ public class JiraJSONParser {
 		JSONObject obj = new JSONObject(tokener);
 		JSONArray issues = (JSONArray) obj.get("issues");
 
+		// issues occasionally throw JSON exceptions and are skipped
 		int skippedIssues = 0;
 
 		for (int i = 0; i < issues.length(); i++) {
@@ -42,12 +43,11 @@ public class JiraJSONParser {
 				Issue jiraIssue = new JiraIssue(key, id, summary, desc, date, displayName);
 				issuesManager.addIssue(jiraIssue);
 
-				System.out.println("Number of issues skipped due to JSON exceptions: " + skippedIssues);
-
 			} catch (JSONException jse) {
 				// if any problems with parsing, skip the issue
 				skippedIssues++;
 			}
 		}
+		System.out.println("Number of issues skipped due to JSON exceptions: " + skippedIssues);
 	}
 }

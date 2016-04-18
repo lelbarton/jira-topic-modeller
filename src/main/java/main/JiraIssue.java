@@ -10,7 +10,7 @@ public class JiraIssue implements Issue {
 	private String summary;
 	private String contentText;
 	private String displayName;
-	private Instance instance;
+	private Instance instance; // topic model instance
 
 	/*
 	 * Constructor for JIRA issue object
@@ -21,13 +21,11 @@ public class JiraIssue implements Issue {
 	 * 
 	 * @param summary The subject line
 	 * 
-	 * @param desc The content of the issue post
+	 * @param desc The content of the post
 	 * 
 	 * @param date The date this was posted
 	 * 
 	 * @param displayName The display name of the author
-	 * 
-	 * @param userName The Atlassian user name of the author
 	 */
 	public JiraIssue(String key, int id, String summary, String desc, String date, String displayName) {
 		this.setId(id);
@@ -36,6 +34,8 @@ public class JiraIssue implements Issue {
 		this.setSummary(summary);
 		this.setContent(desc);
 		this.setDisplayName(displayName);
+		// instance set by topic modeler class when this added to issues manager
+		this.instance = null;
 	}
 
 	// *** Getters and Setters **

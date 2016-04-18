@@ -18,9 +18,9 @@ import cc.mallet.types.IDSorter;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 
-public class MalletTopicModeller {
+public class MalletTopicModeler {
 	// some code adapted from http://mallet.cs.umass.edu/topics-devel.php
-	private static MalletTopicModeller singletonInstance;
+	private static MalletTopicModeler singletonInstance;
 	private InstanceList instances;
 	private ArrayList<Pipe> pipeList;
 	private ParallelTopicModel model;
@@ -28,23 +28,28 @@ public class MalletTopicModeller {
 	// Run the model for 50 iterations for testing,
 	// use 1000 to 2000 iterations for final application
 	private static final int NUM_ITERATIONS = 1000;
-	// # of topics; adjust accordingly if results seem to coarse or too specific
-	private static final int NUM_TOPICS = 30;
+	// # of topics; adjust if results seem either too coarse or too specific
+	private static final int NUM_TOPICS = 25;
 	// # of words to include when printing topic
 	private static final int TOP_WORDS = 5;
 
-	private MalletTopicModeller() {
+	private MalletTopicModeler() {
 		this.model = new ParallelTopicModel(NUM_TOPICS, 1.0, 0.01);
 		createPipeList();
 	}
 
-	public static MalletTopicModeller getInstance() {
+	public static MalletTopicModeler getInstance() {
+		// there should only be one topic modeler to ensure that all issues are
+		// included when training the model or comparing newly added issues
 		if (singletonInstance == null) {
-			singletonInstance = new MalletTopicModeller();
+			singletonInstance = new MalletTopicModeler();
 		}
 		return singletonInstance;
 	}
 
+	/*
+	 * The pipe which processes newly added instances
+	 */
 	private void createPipeList() {
 		this.pipeList = new ArrayList<Pipe>();
 		pipeList.add(new CharSequenceLowercase());
@@ -59,7 +64,10 @@ public class MalletTopicModeller {
 	 * Add a new instance created from an issue. Currently addThruPipe is
 	 * redundant as all issues are considered part of the training corpus and
 	 * will be added through pipe when trainTopics is called, but this will be
-	 * useful in future when new issues are created and model is already trained
+	 * useful in future when new issues are created and model is already
+	 * trained'
+	 * 
+	 * @param the new Issue to be added to the topic modeler corpus
 	 */
 	public Instance addInstance(Issue issue) {
 		String subjectAndContent = issue.getSummary().concat(issue.getContent());
@@ -83,9 +91,15 @@ public class MalletTopicModeller {
 
 	/*
 	 * Given an instance, get the topic for which it has the heaviest weighting
-	 * and return a formatted string representing the top five words
+	 * and return a formatted string representing the top five words in that
+	 * topic
+	 * 
+	 * @param inst Retrieve the main topic for this Instance
+	 * 
+	 * @return Formatted String representing the topic number, weighting, and
+	 * TOP_WORDS words in that topic
 	 */
-	@SuppressWarnings("resource")
+	@SuppressWarnings("resource") // out Formatter never closed
 	public String getMainTopicString(Instance inst) {
 		// adapted from http://mallet.cs.umass.edu/topics-devel.php
 		int i = instances.indexOf(inst);
@@ -112,7 +126,12 @@ public class MalletTopicModeller {
 
 	/*
 	 * Topics are weighted by a percentage represented as a double in the given
-	 * array. Return the index for the largest weight.
+	 * array.
+	 * 
+	 * @param Array representing the distribution of topic weights for an
+	 * Instance
+	 * 
+	 * @return The index of the topic with the largest weight
 	 */
 	private int getMainTopicIndex(double[] topicDistribution) {
 		double max = 0.0;
