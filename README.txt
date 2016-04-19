@@ -1,14 +1,16 @@
-############################
-### TOPIC MODELING SETUP ###
-############################
+#############
+### SETUP ###
+#############
 
-For use with your desired issue tracking system, replace the constant string ISSUES_URL in the Main class with your desired issues system. For JIRA systems, this will typically have the format:
+STEP 1: For use with your desired issue tracking system, replace the constant string ISSUES_URL in the Main class with your desired issues system. For JIRA systems, this will typically have the format:
 
 https://<$BASE_URL_NAME>.atlassian.net/rest/api/latest/search?jql=project=<$PROJECT_CODE>&maxResults=-1
 
 That is, you should need to replace the base URL name and the project code in the default URL order to successfully run the topic modeler. Note that with maxResults = -1, all issues will be retrieved from the system ("latest" refers to the version of JIRA, not the issues themselves), which can take some time for projects with upwards of 1000 issues. For testing, it would be advisable to set a reasonable cap on the results, and revert to -1 when the desired settings are reached.
 
 The current implementation does not support queries to a tracking system that requires authentication, however this could be achieved by modifying the HttpIssueFetcher class.
+
+STEP 2: Replace OUTFILE with your desired file path for the .csv output.
 
 
 #########################
