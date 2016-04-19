@@ -9,7 +9,7 @@ public class TopicWriter {
 
 	private String fileName;
 	private FileWriter writer;
-	private static final String COLUMN_HEADERS = "Key, Author, Subject, Content, Main Topic, Topic #, Weight \n";
+	private static final String COLUMN_HEADERS = "Key, Author, Subject, Content, Topic #, Weight, Main Topic\n";
 	private static final String DELIMITER = ",";
 
 	/*
@@ -38,7 +38,8 @@ public class TopicWriter {
 			writer.append(author + DELIMITER);
 			writer.append(StringEscapeUtils.escapeCsv(subject) + DELIMITER);
 			writer.append(StringEscapeUtils.escapeCsv(content) + DELIMITER);
-			writer.append(topicInfo + "\n");
+			writer.append(topicInfo);
+			writer.append("\n");
 
 		} catch (IOException e) {
 			System.err.println("Could not write issue " + key + " to csv");
