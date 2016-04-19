@@ -12,6 +12,7 @@ import main.JiraIssue;
 public class JiraJSONParser {
 
 	public static void parse(String input, IssueManager issuesManager) {
+		System.out.println("Parsing response...");
 		JSONTokener tokener = new JSONTokener(input);
 
 		JSONObject obj = new JSONObject(tokener);

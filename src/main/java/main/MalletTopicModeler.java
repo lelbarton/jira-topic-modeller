@@ -27,7 +27,7 @@ public class MalletTopicModeler {
 
 	// Run the model for 50 iterations for testing,
 	// use 1000 to 2000 iterations for final application
-	private static final int NUM_ITERATIONS = 1000;
+	private static final int NUM_ITERATIONS = 2000;
 	// # of topics; adjust if results seem either too coarse or too specific
 	private static final int NUM_TOPICS = 25;
 	// # of words to include when printing topic

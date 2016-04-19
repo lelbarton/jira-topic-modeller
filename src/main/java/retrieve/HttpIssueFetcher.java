@@ -23,14 +23,15 @@ public class HttpIssueFetcher {
 
 	public String httpGet(String urlStr) throws IOException {
 		URL url = new URL(urlStr);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		System.out.println("Fetching issues...");
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-		if (conn.getResponseCode() != 200) {
-			throw new IOException(conn.getResponseMessage());
+		if (connection.getResponseCode() != 200) {
+			throw new IOException(connection.getResponseMessage());
 		}
 
 		// Buffer the result into a string
-		BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		StringBuilder sb = new StringBuilder();
 		String line;
 		while ((line = rd.readLine()) != null) {
@@ -38,7 +39,7 @@ public class HttpIssueFetcher {
 		}
 		rd.close();
 
-		conn.disconnect();
+		connection.disconnect();
 		return sb.toString();
 	}
 
