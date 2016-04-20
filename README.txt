@@ -12,7 +12,7 @@ The current implementation does not support queries to a tracking system that re
 
 STEP 2: Replace OUTFILE with your desired file path for the .csv output.
 
-STEP 3: Modify the array of stop words, if desired. These are words which you wish to ignore when analyzing the corpus; good candidates might be the name of the project or company, as these words will be very frequent but not illustrative when it comes to delineating different topics. Note that generic stop words such as "the", "and", "but" are excluded by default.
+STEP 3: Modify the array of stop words, if desired. These are words which you wish to ignore when analyzing the corpus; good candidates might be the name of the project or company, as these words will be very frequent but not illustrative when it comes to delineating different topics. The words are not case sensitive, although lower case is a safer bet as this has not been extensively tested. Note that generic stop words such as "the", "and", "but" are excluded by default.
 
 
 #########################
