@@ -24,6 +24,7 @@ public class MalletTopicModeler {
 	private InstanceList instances;
 	private ArrayList<Pipe> pipeList;
 	private ParallelTopicModel model;
+	private String[] stopwords;
 
 	// Run the model for 50 iterations for testing,
 	// use 1000 to 2000 iterations for final application
@@ -33,16 +34,17 @@ public class MalletTopicModeler {
 	// # of words to include when printing topic
 	private static final int TOP_WORDS = 5;
 
-	private MalletTopicModeler() {
+	private MalletTopicModeler(String[] stopwords) {
 		this.model = new ParallelTopicModel(NUM_TOPICS, 1.0, 0.01);
+		this.stopwords = stopwords;
 		createPipeList();
 	}
 
-	public static MalletTopicModeler getInstance() {
+	public static MalletTopicModeler getInstance(String[] stopwords) {
 		// there should only be one topic modeler to ensure that all issues are
 		// included when training the model or comparing newly added issues
 		if (singletonInstance == null) {
-			singletonInstance = new MalletTopicModeler();
+			singletonInstance = new MalletTopicModeler(stopwords);
 		}
 		return singletonInstance;
 	}
@@ -54,7 +56,9 @@ public class MalletTopicModeler {
 		this.pipeList = new ArrayList<Pipe>();
 		pipeList.add(new CharSequenceLowercase());
 		pipeList.add(new CharSequence2TokenSequence(Pattern.compile("\\p{L}[\\p{L}\\p{P}]+\\p{L}")));
-		pipeList.add(new TokenSequenceRemoveStopwords(false, false));
+		TokenSequenceRemoveStopwords remStopWords = new TokenSequenceRemoveStopwords(false, false);
+		remStopWords.addStopWords(this.stopwords);
+		pipeList.add(remStopWords);
 		pipeList.add(new TokenSequence2FeatureSequence());
 
 		this.instances = new InstanceList(new SerialPipes(pipeList));

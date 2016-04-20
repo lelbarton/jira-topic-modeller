@@ -11,9 +11,9 @@ public class IssueManager implements Iterable<Issue> {
 	protected Set<Issue> issues;
 	protected MalletTopicModeler topicModelManager;
 
-	public IssueManager() {
+	public IssueManager(String[] stopwords) {
 		this.issues = new HashSet<Issue>();
-		this.topicModelManager = MalletTopicModeler.getInstance();
+		this.topicModelManager = MalletTopicModeler.getInstance(stopwords);
 	}
 
 	/*
