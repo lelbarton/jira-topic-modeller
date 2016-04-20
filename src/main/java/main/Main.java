@@ -11,6 +11,7 @@ public class Main {
 	static final String ISSUES_URL = "https://connectopensource.atlassian.net/rest/api/latest/search?jql=project=CONN&maxResults=-1";
 	// where to save csv results
 	static final String OUTFILE = "/Users/Laura/Desktop/testTopicModel.csv";
+	// These words will be ignored during topic modelling
 	static final String[] stopwords = { "conn", "connect", "gateway" };
 
 	public static void main(String[] args) throws Exception {
