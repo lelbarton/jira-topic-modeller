@@ -1,6 +1,4 @@
-#############
-### SETUP ###
-#############
+## SETUP
 
 STEP 1: For use with your desired issue tracking system, replace the constant string ISSUES_URL in the Main class with your desired issues system. For JIRA systems, this will typically have the format:
 
@@ -14,10 +12,7 @@ STEP 2: Replace OUTFILE with your desired file path for the .csv output.
 
 STEP 3: Modify the array of stop words, if desired. These are words which you wish to ignore when analyzing the corpus; good candidates might be the name of the project or company, as these words will be very frequent but not illustrative when it comes to delineating different topics. The words are not case sensitive, although lower case is a safer bet as this has not been extensively tested. Note that generic stop words such as "the", "and", "but" are excluded by default.
 
-
-#########################
-### ADJUSTING RESULTS ###
-#########################
+## ADJUSTING RESULTS
 
 In the MalletTopicModeler class, constants can be altered in order to fine-tune the results:
 
